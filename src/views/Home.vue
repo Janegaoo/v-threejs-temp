@@ -1,3 +1,10 @@
+<!--
+ * @Author: Jane
+ * @Date: 2020-04-14 10:53:30
+ * @LastEditors: Jane
+ * @LastEditTime: 2020-04-15 16:27:45
+ * @Descripttion: 
+ -->
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
@@ -7,10 +14,10 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     HelloWorld
   }
