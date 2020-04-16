@@ -2,28 +2,33 @@
  * @Author: Jane
  * @Date: 2020-04-14 17:43:10
  * @LastEditors: Jane
- * @LastEditTime: 2020-04-15 16:24:13
+ * @LastEditTime: 2020-04-16 17:00:54
  * @Descripttion: 
  -->
 <template>
   <div id="app">
-    <div id="nav">
-      {{ ValA }}
-    </div>
+    <div id="nav">{{ ValA }}</div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import * as THREE from 'three';
 
 @Component({})
 export default class Page1 extends Vue {
   ValA = 'hello page1'; // a
   ValB = 1; // aaa
 
-  heloWord(a: string) {
+  heloWord2(a: string) {
     const aa = 'test';
     console.log(a, aa);
+    // console.log(Vue);
+  }
+
+  mounted() {
+    this.heloWord2('page1');
+    console.log(THREE);
   }
 }
 </script>
@@ -35,6 +40,30 @@ export default class Page1 extends Vue {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  .a {
+    padding: 30px;
+
+    a {
+      font-weight: bold;
+      color: #2c3e50;
+
+      &.router-link-exact-active {
+        color: #42b983;
+      }
+    }
+  }
+  .b {
+    padding: 30px;
+
+    a {
+      font-weight: bold;
+      color: #2c3e50;
+
+      &.router-link-exact-active {
+        color: #42b983;
+      }
+    }
+  }
 }
 
 #nav {

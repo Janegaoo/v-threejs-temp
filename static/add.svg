@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>add@2x</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g transform="translate(-344.000000, -349.000000)" id="add" stroke="#666666">
+            <g transform="translate(345.000000, 350.000000)">
+                <g id="分组-2">
+                    <path d="M0,7.5 L14,7.5" id="直线" stroke-width="2"></path>
+                    <path d="M0,7.5 L14,7.5" id="直线" stroke-width="2" transform="translate(7.000000, 7.500000) rotate(-270.000000) translate(-7.000000, -7.500000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
