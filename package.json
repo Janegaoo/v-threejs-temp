@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "analyze": "cross-env npm_config_report=true vue-cli-service build --mode analyze"
   },
   "dependencies": {
     "core-js": "^3.6.4",
@@ -32,6 +33,7 @@
     "babel-loader": "^8.1.0",
     "cache-loader": "^4.1.0",
     "copy-webpack-plugin": "^5.1.1",
+    "cross-env": "^7.0.2",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^6.2.2",
@@ -40,6 +42,7 @@
     "sass-loader": "^8.0.2",
     "terser-webpack-plugin": "^2.3.5",
     "typescript": "~3.8.3",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack-bundle-analyzer": "^3.7.0"
   }
 }

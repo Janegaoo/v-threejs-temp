@@ -2,7 +2,7 @@
  * @Author: Jane
  * @Date: 2020-04-14 17:28:54
  * @LastEditors: Jane
- * @LastEditTime: 2020-04-16 17:10:02
+ * @LastEditTime: 2020-04-16 17:44:10
  * @Descripttion:
  */
 
@@ -12,6 +12,7 @@ const utils = require('./build/utils'); // 生成入口文件对象
 const productionMode = process.env.NODE_ENV === 'production';
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin'); // 用terser-webpack-plugin替换掉uglifyjs-webpack-plugin解决uglifyjs不支持es6语法问题
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const path = require('path');
 const env = process.env.NODE_ENV;
@@ -78,6 +79,9 @@ module.exports = {
           }
         }
       });
+      if (process.env.ANALYZ_ENV) {
+        config.plugins.push(new BundleAnalyzerPlugin());
+      }
     } else {
       // 为开发环境修改配置...
     }
