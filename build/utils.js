@@ -2,7 +2,7 @@
  * @Author: Jane
  * @Date: 2020-04-16 11:04:35
  * @LastEditors: Jane
- * @LastEditTime: 2020-04-16 16:34:36
+ * @LastEditTime: 2020-04-16 18:25:33
  * @Descripttion:
  */
 
@@ -116,7 +116,8 @@ function readDirSync(path, moduleName, nextLevel) {
     var moduleObj = {
         entry: '',
         template: '',
-        filename: ''
+        filename: '',
+        inject: true
     };
     //获取当前模块ID
     var moduleID = path.replace(moduleRootPath + '/', '');
