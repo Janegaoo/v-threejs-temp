@@ -2,23 +2,23 @@
  * @Author: Jane
  * @Date: 2020-04-16 11:04:35
  * @LastEditors: Jane
- * @LastEditTime: 2020-04-16 18:25:33
+ * @LastEditTime: 2020-04-19 21:26:03
  * @Descripttion:
  */
 
 /* 这里是添加的部分 ---------------------------- 开始 */
 // glob是webpack安装时依赖的一个第三方模块，还模块允许你使用 *等符号, 例如lib/*.js就是获取lib文件夹下的所有js后缀名的文件
-var glob = require('glob');
+const glob = require('glob');
 const path = require('path');
 // 页面模板
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 // 取得相应的页面路径，因为之前的配置，所以是src文件夹下的pages文件夹
-var PAGE_PATH = path.resolve(__dirname, '../src/views');
+const PAGE_PATH = path.resolve(__dirname, '../src/views');
 // 用于做相应的merge处理
-var merge = require('webpack-merge');
+const merge = require('webpack-merge');
 
 const fs = require('fs');
-var moduleRootPath = 'src/views'; //模块根目录(这个可以根据自己的需求命名)
+const moduleRootPath = 'src/views'; //模块根目录(这个可以根据自己的需求命名)
 let moduleInfo = null;
 
 //多入口配置
@@ -55,10 +55,10 @@ let moduleInfo = null;
 //多页面输出配置
 // 与上面的多页面入口配置相同，读取pages文件夹下的对应的html后缀文件，然后放入数组中
 exports.htmlPlugin = function() {
-  let entryHtml = glob.sync(PAGE_PATH + '/*/*.html');
-  let arr = [];
+  const entryHtml = glob.sync(PAGE_PATH + '/*/*.html');
+  const arr = [];
   entryHtml.forEach(filePath => {
-    let filename = filePath.substring(
+    const filename = filePath.substring(
       filePath.lastIndexOf('/') + 1,
       filePath.lastIndexOf('.')
     );
@@ -87,24 +87,24 @@ exports.htmlPlugin = function() {
 };
 
 exports.getEntries = function getEntries() {
-    //初始化模块列表
-    this.getModuleInfo();
-    console.log(
-        '*********************************** entries ***********************************'
-    );
-    console.log(JSON.stringify(moduleInfo));
-    return moduleInfo;
+  //初始化模块列表
+  this.getModuleInfo();
+  console.log(
+    '*********************************** entries ***********************************'
+  );
+  console.log(JSON.stringify(moduleInfo));
+  return moduleInfo;
 };
 exports.getModuleInfo = function getModuleInfo() {
-    //判断是否为空，不为空则直接返回
-    if (moduleInfo) {
-        return moduleInfo;
-    } else {
-        //为空则读取列表
-        moduleInfo = {};
-        readDirSync(moduleRootPath, '', true);
-        return moduleInfo;
-    }
+  //判断是否为空，不为空则直接返回
+  if (moduleInfo) {
+    return moduleInfo;
+  } else {
+    //为空则读取列表
+    moduleInfo = {};
+    readDirSync(moduleRootPath, '', true);
+    return moduleInfo;
+  }
 };
 /**
  * 深度遍历目录，并整理多页面模块
@@ -112,50 +112,50 @@ exports.getModuleInfo = function getModuleInfo() {
  * @param moduleName 模块名称
  */
 function readDirSync(path, moduleName, nextLevel) {
-    //缓存模块对象
-    var moduleObj = {
-        entry: '',
-        template: '',
-        filename: '',
-        inject: true
-    };
-    //获取当前模块ID
-    var moduleID = path.replace(moduleRootPath + '/', '');
-    if (path == moduleRootPath) {
-        moduleID = '';
+  //缓存模块对象
+  const moduleObj = {
+    entry: '',
+    template: '',
+    filename: '',
+    inject: true
+  };
+  //获取当前模块ID
+  let moduleID = path.replace(moduleRootPath + '/', '');
+  if (path == moduleRootPath) {
+    moduleID = '';
+  }
+  //获取目录下所有文件及文件夹
+  const pa = fs.readdirSync(path);
+  pa.forEach(function(ele, index) {
+    const info = fs.statSync(path + '/' + ele);
+    if (info.isDirectory()) {
+      // console.log("dir: "+ele)
+      nextLevel && readDirSync(path + '/' + ele, ele, false);
+    } else {
+      //判断当前模块的html是否存在
+      if ('index.html' == ele) {
+        moduleObj.template = path + '/' + ele;
+        moduleObj.filename = moduleID + '/' + 'index.html';
+      } else {
+        moduleObj.template = './public/index.html';
+        moduleObj.filename = moduleID + '/' + 'index.html';
+      }
+      //判断当前模块的js是否存在
+      if ('main.ts' == ele) {
+        moduleObj.entry = path + '/' + ele;
+      }
+      // console.log("file: "+ele)
     }
-    //获取目录下所有文件及文件夹
-    var pa = fs.readdirSync(path);
-    pa.forEach(function(ele, index) {
-        var info = fs.statSync(path + '/' + ele);
-        if (info.isDirectory()) {
-            // console.log("dir: "+ele)
-            nextLevel && readDirSync(path + '/' + ele, ele, false);
-        } else {
-            //判断当前模块的html是否存在
-            if ('index.html' == ele) {
-                moduleObj.template = path + '/' + ele;
-                moduleObj.filename = moduleID + '/' + 'index.html';
-            } else {
-                moduleObj.template = './public/index.html';
-                moduleObj.filename = moduleID + '/' + 'index.html';
-            }
-            //判断当前模块的js是否存在
-            if ('main.ts' == ele) {
-                moduleObj.entry = path + '/' + ele;
-            }
-            // console.log("file: "+ele)
-        }
-    });
-    //判断模块是否真实(可能只是个分级目录)
-    if (
-        (moduleObj.moduleID != '' && moduleObj.moduleHTML != '') ||
-        (moduleObj.moduleID != '' && moduleObj.moduleJS != '')
-    ) {
-        if (moduleID) {
-            moduleInfo[moduleID] = moduleObj;
-        }
+  });
+  //判断模块是否真实(可能只是个分级目录)
+  if (
+    (moduleObj.moduleID != '' && moduleObj.moduleHTML != '') ||
+    (moduleObj.moduleID != '' && moduleObj.moduleJS != '')
+  ) {
+    if (moduleID) {
+      moduleInfo[moduleID] = moduleObj;
     }
+  }
 }
 // exports.getEntries();
 
@@ -195,3 +195,43 @@ function readDirSync(path, moduleName, nextLevel) {
 //         }
 //     }
 // }
+
+// 多页面3设置
+const pages = {}; // 存放分页
+exports.pages = function() {
+  // 遍历拿到所有的js目录，如 ./src/pages/index/index.js
+  //   var entryFiles = glob.sync(PAGE_PATH + '/*/*.ts');
+
+  //   var map = {};
+  //   entryFiles.forEach(filePath => {
+  const entryFiles = glob.sync(PAGE_PATH + '/*/*.ts');
+  //获取当前模块ID
+  let moduleID = moduleRootPath.replace(moduleRootPath + '/', '');
+  if (moduleRootPath == moduleRootPath) {
+    moduleID = '';
+  }
+
+  entryFiles.forEach(filepath => {
+    // 使用 / 为分割形成数组 如 ‘.’ ‘src’ ‘pages’ ‘index’ ‘index.js’
+    const fileList = filepath.split('/');
+    // 拿到倒数第二项 如 index
+    const fileName = fileList[fileList.length - 2];
+    pages[fileName] = {
+      // 入口文件
+      entry: 'src/views/' + fileName + '/main.ts',
+      // 模板文件，我使用的是一个公共的，也可以按照自己的需求配置
+      template: 'public/index.html',
+      // 打包后dist文件夹输出的名字
+      // fileName: fileName + '.html',
+      filename: fileName + '/' + 'index.html',
+      chunks: [
+        'chunk-vendors',
+        'chunk-common',
+        fileName,
+        `manifest.${fileName}`
+      ]
+    };
+  });
+  console.log(pages);
+  return pages;
+};

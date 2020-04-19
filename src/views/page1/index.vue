@@ -2,7 +2,7 @@
  * @Author: Jane
  * @Date: 2020-04-14 17:43:10
  * @LastEditors: Jane
- * @LastEditTime: 2020-04-16 17:00:54
+ * @LastEditTime: 2020-04-18 16:22:20
  * @Descripttion: 
  -->
 <template>
@@ -27,7 +27,7 @@ export default class Page1 extends Vue {
   }
 
   mounted() {
-    this.heloWord2('page1');
+    this.heloWord2('page1page1page1page1page1page1page1page1page1page1page1page1page1page1page1page1');
     console.log(THREE);
   }
 }
