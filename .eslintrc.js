@@ -2,7 +2,7 @@
  * @Author: Jane
  * @Date: 2020-04-14 10:53:30
  * @LastEditors: Jane
- * @LastEditTime: 2020-04-15 17:29:12
+ * @LastEditTime: 2020-04-20 11:47:05
  * @Descripttion:
  */
 module.exports = {
@@ -31,6 +31,7 @@ module.exports = {
     //强制不使用分号结尾
     semi: ['error', 'always'],
     'spaced-comment': 0,
+    '@typescript-eslint/no-var-requires': 0,
 
     'no-restricted-syntax': [
       'error',

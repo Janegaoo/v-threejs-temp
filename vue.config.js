@@ -1,15 +1,6 @@
-/*
- * @Author: Jane
- * @Date: 2020-04-14 17:28:54
- * @LastEditors: Jane
- * @LastEditTime: 2020-04-19 21:20:57
- * @Descripttion:
- */
-
 const path = require('path');
 const glob = require('glob');
 const PAGES_PATH = path.resolve(__dirname, './src/views');
-const utils = require('./build/utils'); // 生成入口文件对象
 // const prodConfig = require('./build/webpack.prod.conf'); // 生产配置
 // const devConfig = require('./build/webpack.dev.config'); // 开发模式配置
 const productionMode = process.env.NODE_ENV === 'production';
@@ -18,8 +9,7 @@ const TerserPlugin = require('terser-webpack-plugin'); // 用terser-webpack-plug
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 
-const env = process.env.NODE_ENV;
-const target = process.env.VUE_APP_URL;
+const utils = require('./build/utils'); // 生成入口文件对象
 
 function resolve(dir) {
   return path.join(__dirname, dir);
@@ -124,6 +114,15 @@ module.exports = {
           minSize: 1024, // 将引用模块分离成新代码文件的最小体积
           minChunks: 2, // 表示将引用模块如不同文件引用了多少次，才能分离生成新chunk
           priority: -20
+        },
+        threejs: {
+          name: 'threejs',
+          // test: /[\\/]node_modules[\\/]element-ui[\\/]/,
+          test: /[\\/]node_modules[\\/]three[\\/]/,
+          chunks: 'initial',
+          reuseExistingChunk: true,
+          enforce: true,
+          priority: 3
         }
       }
     });

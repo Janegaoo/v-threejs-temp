@@ -2,7 +2,7 @@
  * @Author: Jane
  * @Date: 2020-04-16 11:04:35
  * @LastEditors: Jane
- * @LastEditTime: 2020-04-19 21:26:03
+ * @LastEditTime: 2020-04-20 11:39:13
  * @Descripttion:
  */
 
@@ -216,6 +216,23 @@ exports.pages = function() {
     const fileList = filepath.split('/');
     // 拿到倒数第二项 如 index
     const fileName = fileList[fileList.length - 2];
+    let _chunks = [];
+    if (fileName === 'page1') {
+      _chunks = [
+        'chunk-vendors',
+        'chunk-common',
+        'threejs',
+        fileName,
+        `manifest.${fileName}`
+      ];
+    } else {
+      _chunks = [
+        'chunk-vendors',
+        'chunk-common',
+        fileName,
+        `manifest.${fileName}`
+      ];
+    }
     pages[fileName] = {
       // 入口文件
       entry: 'src/views/' + fileName + '/main.ts',
@@ -224,12 +241,7 @@ exports.pages = function() {
       // 打包后dist文件夹输出的名字
       // fileName: fileName + '.html',
       filename: fileName + '/' + 'index.html',
-      chunks: [
-        'chunk-vendors',
-        'chunk-common',
-        fileName,
-        `manifest.${fileName}`
-      ]
+      chunks: _chunks
     };
   });
   console.log(pages);
