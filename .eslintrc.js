@@ -2,7 +2,7 @@
  * @Author: Jane
  * @Date: 2020-04-14 10:53:30
  * @LastEditors: Jane
- * @LastEditTime: 2020-04-20 11:47:05
+ * @LastEditTime: 2020-04-20 14:34:51
  * @Descripttion:
  */
 module.exports = {
@@ -32,6 +32,8 @@ module.exports = {
     semi: ['error', 'always'],
     'spaced-comment': 0,
     '@typescript-eslint/no-var-requires': 0,
+    'max-len' : ['error', {code : 300}],
+    "noImplicitAny": false,
 
     'no-restricted-syntax': [
       'error',
