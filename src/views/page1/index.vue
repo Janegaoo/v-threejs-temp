@@ -2,7 +2,7 @@
  * @Author: Jane
  * @Date: 2020-04-14 17:43:10
  * @LastEditors: Jane
- * @LastEditTime: 2020-04-21 17:14:46
+ * @LastEditTime: 2020-04-21 17:39:20
  * @Descripttion: 
  -->
 <template>
@@ -152,13 +152,6 @@ export default class Page1 extends Vue {
 
   update() {
     //捕捉鼠标
-
-    //	if ( isUserInteracting === false ) {
-
-    //		lon += 0.1;
-
-    //	}
-
     this.lat = Math.max(-85, Math.min(85, this.lat));
     this.phi = Three.MathUtils.degToRad(90 - this.lat);
     this.theta = Three.MathUtils.degToRad(this.lon);

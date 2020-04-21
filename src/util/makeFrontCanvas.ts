@@ -2,7 +2,7 @@
  * @Author: Jane
  * @Date: 2020-04-20 16:37:28
  * @LastEditors: Jane
- * @LastEditTime: 2020-04-21 14:44:21
+ * @LastEditTime: 2020-04-21 17:28:53
  * @Descripttion: 
  */
 import * as Three from 'three';
@@ -63,7 +63,7 @@ export function makeTextSprite(message: string, message_zw: string, parameters: 
     texture.needsUpdate = true;
 
     var spriteMaterial = new Three.SpriteMaterial(
-        { map: texture, useScreenCoordinates: false });
+        { map: texture });
     var sprite = new Three.Sprite(spriteMaterial);
     //sprite.scale.set(20,10,0.2);
     return sprite;
