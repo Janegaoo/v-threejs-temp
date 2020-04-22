@@ -2,7 +2,7 @@
  * @Author: Jane
  * @Date: 2020-04-14 17:43:10
  * @LastEditors: Jane
- * @LastEditTime: 2020-04-21 17:39:20
+ * @LastEditTime: 2020-04-22 18:08:10
  * @Descripttion: 
  -->
 <template>
@@ -13,7 +13,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 import * as Three from 'three';
 import { makeTextSprite } from '@/util/makeFrontCanvas';
-// import { onDocumentMouseDown, onDocumentMouseMove, onDocumentMouseUp, onDocumentTouchDown, onDocumentTouchMove, onDocumentMouseUp, onWindowResize } from '@/util/mouseTouchControl'
 
 @Component({})
 export default class Page1 extends Vue {
@@ -131,7 +130,8 @@ export default class Page1 extends Vue {
     document.addEventListener('mousemove', this.onDocumentMouseMove, false);
     document.addEventListener('mouseup', this.onDocumentMouseUp, false);
     //		document.addEventListener( 'wheel', onDocumentMouseWheel, false );
-    document.addEventListener('touchstart', this.onDocumentTouchDown, false);
+
+    document.addEventListener('touchstart', this.onDocumentTouchDown, false); //passive 参数不能省略，用来兼容ios和android
     document.addEventListener('touchmove', this.onDocumentTouchMove, false);
     document.addEventListener('touchend', this.onDocumentMouseUp, false);
 
@@ -227,6 +227,7 @@ export default class Page1 extends Vue {
   }
 
   onDocumentTouchDown(event: any) {
+    // console.log(event)
     event.preventDefault();
 
     this.isUserInteracting = true;
@@ -259,7 +260,7 @@ export default class Page1 extends Vue {
         (this.onPointerDownPointerX - event.touches[0].pageX) * 0.1 +
         this.onPointerDownLon;
       this.lat =
-        (event.touches[0].pageY - this.onPointerDownPointerY) * 0.1 +
+        ( event.touches[0].pageY - this.onPointerDownPointerY) * 0.1 +
         this.onPointerDownLat;
     }
   }
@@ -272,7 +273,7 @@ export default class Page1 extends Vue {
     // var fov = this.camera.fov + event.deltaY * 0.05;
     // this.camera.fov = Three.MathUtils.clamp(fov, 10, 75);
     // this.camera.updateProjectionMatrix();
-    
+
     this.camera.fov += event.deltaY * 0.05;
     this.camera.updateProjectionMatrix();
   }
@@ -283,5 +284,9 @@ export default class Page1 extends Vue {
 #page1 {
   width: 100vw;
   height: 100vh;
+}
+#page1 { //修复 Unable to preventDefault inside passive event listener
+  -ms-touch-action: none;
+  touch-action: none;
 }
 </style>
